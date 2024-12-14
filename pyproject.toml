@@ -1,0 +1,12 @@
+[project]
+name = "todolist-soulparkin-uv"
+version = "0.1.0"
+description = "Simple To do list app for case study Soul Parking"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.6",
+    "pre-commit>=4.0.1",
+    "pydantic>=2.10.3",
+    "uvicorn>=0.33.0",
+]
