@@ -63,3 +63,25 @@ def create(todo_data: TodoIn):
     todos.append(todo)
 
     return SuccessResponse[Todo](code=201, data=todo, message="New Todo created!")
+
+
+@todo_router.put(
+    "/{todo_id}",
+    status_code=200,
+    summary="Update Todo by ID",
+    description="Update todo data by given ID",
+    response_model=ResponseModel[Todo | None],
+)
+def update_by_id(todo_id: str, todo_data: TodoIn, response: Response):
+    for todo in todos:
+        if todo.id == todo_id:
+            # Update data if todo is found by ID
+            todo.updated_at = datetime.now()
+            todo.title = todo_data.title
+            todo.description = todo_data.description
+
+            return SuccessResponse[Todo](data=todo, message="Todo updated!")
+
+    # Return 404 message if given ID is not found in list
+    response.status_code = 404
+    return ErrorResponse[None](message="Todo Not found", code=404, data=None)
