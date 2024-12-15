@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi import APIRouter, Response
 from ulid import ULID
 from core.helper.responses import ErrorResponse, ResponseModel, SuccessResponse
@@ -17,8 +17,8 @@ class Todo(BaseModel):
 
 
 class TodoIn(BaseModel):
-    title: str
-    description: str
+    title: str = Field(min_length=3)
+    description: str = Field(min_length=5)
 
 
 todos: List[Todo] = []
