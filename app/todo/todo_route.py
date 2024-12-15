@@ -10,10 +10,14 @@ class Todo(BaseModel):
     id: str
     title: str
     description: str
-    finished_at: Optional[datetime] = None
-    created_at: datetime
-    updated_at: datetime
-    deleted_at: Optional[datetime] = None
+    finished_at: Optional[datetime] = Field(
+        serialization_alias="finishedAt", default=None
+    )
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+    deleted_at: Optional[datetime] = Field(
+        serialization_alias="deletedAt", default=None
+    )
 
 
 class TodoIn(BaseModel):
