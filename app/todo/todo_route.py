@@ -38,11 +38,11 @@ def get_all():
     status_code=200,
     summary="Get Todo by ID",
     description="Get single Todo by given ID",
-    response_model=ResponseModel[Todo | None],
+    response_model=ResponseModel[Todo],
 )
 def get_single_by_id(todo_id: str, response: Response):
     for todo in todos:
-        if todo.id == todo_id:
+        if todo.id == todo_id and not todo.deleted_at:
             return SuccessResponse[Todo](data=todo)
 
     response.status_code = 404
@@ -70,17 +70,58 @@ def create(todo_data: TodoIn):
     status_code=200,
     summary="Update Todo by ID",
     description="Update todo data by given ID",
-    response_model=ResponseModel[Todo | None],
+    response_model=ResponseModel[Todo],
 )
 def update_by_id(todo_id: str, todo_data: TodoIn, response: Response):
     for todo in todos:
-        if todo.id == todo_id:
+        if todo.id == todo_id and not todo.deleted_at:
             # Update data if todo is found by ID
             todo.updated_at = datetime.now()
             todo.title = todo_data.title
             todo.description = todo_data.description
 
             return SuccessResponse[Todo](data=todo, message="Todo updated!")
+
+    # Return 404 message if given ID is not found in list
+    response.status_code = 404
+    return ErrorResponse[None](message="Todo Not found", code=404, data=None)
+
+
+@todo_router.patch(
+    "/{todo_id}/finish",
+    status_code=200,
+    summary="Mark To Do as finished",
+    description="Update the todo as finished and update the finished_at field",
+    response_model=ResponseModel[Todo],
+)
+def finish_todo(todo_id: str, response: Response):
+    for todo in todos:
+        if todo.id == todo_id and not todo.deleted_at:
+            # Update data if todo is found by ID
+            todo.updated_at = datetime.now()
+            todo.finished_at = datetime.now()
+
+            return SuccessResponse[Todo](data=todo, message="Todo finished!")
+
+    # Return 404 message if given ID is not found in list
+    response.status_code = 404
+    return ErrorResponse[None](message="Todo Not found", code=404, data=None)
+
+
+@todo_router.delete(
+    "/{todo_id}",
+    status_code=200,
+    summary="Delete To Do ",
+    description="Delete todo by given ID",
+    response_model=ResponseModel[None],
+)
+def delete(todo_id: str, response: Response):
+    for todo in todos:
+        if todo.id == todo_id and not todo.deleted_at:
+            # Update data if todo is found by ID
+            todo.deleted_at = datetime.now()
+
+            return SuccessResponse[None](message="Todo deleted!")
 
     # Return 404 message if given ID is not found in list
     response.status_code = 404
