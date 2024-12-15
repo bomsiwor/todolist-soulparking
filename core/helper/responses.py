@@ -1,9 +1,11 @@
-from typing import Any, Optional
+from typing import Generic, Optional, TypeVar
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+DataType = TypeVar("DataType")
 
-class ResponseModel(BaseModel):
+
+class ResponseModel(BaseModel, Generic[DataType]):
     """Base model for standardized API responses.
 
     Attributes:
@@ -13,7 +15,7 @@ class ResponseModel(BaseModel):
     """
 
     message: str = "OK"
-    data: Optional[Any] = None
+    data: Optional[DataType] = None
     code: int = 200
 
     def result(self) -> JSONResponse:
@@ -22,7 +24,7 @@ class ResponseModel(BaseModel):
         )
 
 
-class SuccessResponse(ResponseModel):
+class SuccessResponse(ResponseModel, Generic[DataType]):
     """Inherits the ResponseModel. Default status code is 200.
 
     Attributes:
@@ -32,7 +34,7 @@ class SuccessResponse(ResponseModel):
     code: int = Field(ge=200, lt=400, default=200)
 
 
-class ErrorResponse(ResponseModel):
+class ErrorResponse(ResponseModel, Generic[DataType]):
     """Inherits the ResponseModel. Default status code is 400.
 
     Attributes:

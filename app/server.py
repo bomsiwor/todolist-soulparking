@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.config import config
 from core.helper.responses import ErrorResponse
 from starlette.exceptions import HTTPException
+from app.routes import api_router
 
 
 def create_middleware() -> list[Middleware]:
@@ -30,6 +31,9 @@ def create_app() -> FastAPI:
         docs_url=None if config.APP_ENV == "production" else "/docs",
         middleware=create_middleware(),
     )
+
+    # Include router from routes
+    app.include_router(api_router)
 
     # Override the default exception handler
     # Remember to use starlette exception
