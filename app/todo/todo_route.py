@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
 from fastapi import APIRouter, Response
-
+from ulid import ULID
 from core.helper.responses import ErrorResponse, ResponseModel, SuccessResponse
 
 
@@ -47,3 +47,19 @@ def get_single_by_id(todo_id: str, response: Response):
 
     response.status_code = 404
     return ErrorResponse[None](message="Todo Not found", code=404, data=None)
+
+
+@todo_router.post("/", response_model=ResponseModel[Todo], status_code=201)
+def create(todo_data: TodoIn):
+    todo_id = ULID().__str__()
+    todo = Todo(
+        id=todo_id,
+        title=todo_data.title,
+        description=todo_data.description,
+        created_at=datetime.now(),
+        updated_at=datetime.now(),
+    )
+
+    todos.append(todo)
+
+    return SuccessResponse[Todo](code=201, data=todo, message="New Todo created!")
