@@ -1,3 +1,4 @@
+from starlette.exceptions import HTTPException
 from app.todo.entity.todo_entity import TodoIn
 from app.todo.repository.todo_repository import TodoRepository
 from core.helper.datetime import formatDateTime
@@ -27,16 +28,13 @@ class TodoUsecase:
         # Get todo data by ID
         todo = self.repo.get_todo_by_id(todo_id=todo_id)
 
-        # return none if data not found
-        # Raise exception for next update
-        if not todo:
-            return None
-
+        # Prevent collision
         # Raise exceptiionn if todo already finished
         if todo.finished_at:
-            return None
+            raise HTTPException(status_code=409, detail="Todo already finished")
 
         # Update finished at & updated at
+        # We dont have to persist back to database because this approach already update the data
         todo.finished_at = str(formatDateTime(datetime.now()))
         todo.updated_at = str(formatDateTime(datetime.now()))
 

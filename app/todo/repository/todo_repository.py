@@ -2,6 +2,7 @@ from typing import List
 from app.todo.entity.todo_entity import Todo, TodoIn
 from ulid import ULID
 from datetime import datetime
+from core.exceptions.not_found_exception import ResourceNotFoundException
 from core.helper.datetime import formatDateTime
 
 
@@ -10,16 +11,20 @@ class TodoRepository:
         self.entity = todos
 
     def get_all(self) -> List[Todo]:
+        # Get all data with deletedAt is null
+        # Return as list
         result = [todo for todo in self.entity if not todo.deleted_at]
 
         return result
 
-    def get_todo_by_id(self, todo_id: str) -> Todo | None:
+    def get_todo_by_id(self, todo_id: str) -> Todo:
+        # Search todo data by id.
         for todo in self.entity:
             if todo.id == todo_id and not todo.deleted_at:
                 return todo
 
-        return None
+        #  raise exception if not found
+        raise ResourceNotFoundException(message="Todo not found")
 
     def insert(self, todo_data: TodoIn) -> Todo:
         todo_id = ULID().__str__()
@@ -45,7 +50,8 @@ class TodoRepository:
 
                 return todo
 
-        return None
+        # Raisse exception if data not fond by ID
+        raise ResourceNotFoundException(message="Todo not found")
 
     def delete(self, *, todo_id: str) -> Todo | None:
         for todo in self.entity:
@@ -55,4 +61,5 @@ class TodoRepository:
 
                 return todo
 
-        return None
+        # Raisse exception if data not fond by ID
+        raise ResourceNotFoundException(message="Todo not found")
