@@ -10,7 +10,7 @@ todo_repo = TodoRepository(todos)
 todo_usecase = TodoUsecase(todo_repo)
 
 # Create instance of todo router
-todo_router = APIRouter(prefix="/todo", tags=["todo"])
+todo_router = APIRouter(prefix="/todos", tags=["todo"])
 
 
 @todo_router.get(
