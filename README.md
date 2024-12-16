@@ -90,7 +90,7 @@ uv sync
 - Use python.
 Because main app contain uvicorn. We can run app using python command and still get benefits of uvicorn.
 ```bash
-python run main.py
+python main.py
 ```
 
 - Use uv
