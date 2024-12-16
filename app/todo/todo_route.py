@@ -8,7 +8,7 @@ from core.helper.responses import ErrorResponse, ResponseModel, SuccessResponse
 
 class Todo(BaseModel):
     id: str
-    title: str
+    title: str = Field(title="Title")
     description: str
     finished_at: Optional[datetime] = Field(
         serialization_alias="finishedAt", default=None
