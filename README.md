@@ -55,7 +55,7 @@ docker run -p 8088:8088 todo-app
 
 4. Alternatively, you can use docker compose. Run in port 8088
 ```bash
-docker compose up -d
+docker compose -f docker/docker-compose.yaml up -d --build
 ```
 
 ---
