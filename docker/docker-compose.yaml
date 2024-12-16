@@ -1,0 +1,10 @@
+name: soulparking-todo
+
+services:
+  todo-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: todo-app
+    ports:
+      - 8088:8088
