@@ -9,6 +9,7 @@ A simple and efficient To-Do List API built using **Python**, **FastAPI**, and *
 - Structured validation with **Pydantic**.
 - Supports **ULID** for unique IDs.
 - Utilize **array**, no need for database.
+- Use pre-commit hooks to ensure consistency and enhance code style
 - Fully Dockerized for seamless deployment. 🐳
 
 ---
