@@ -4,6 +4,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 from core.config import config
+from core.exceptions.not_found_exception import ResourceNotFoundException
 from core.helper.responses import ErrorResponse
 from starlette.exceptions import HTTPException
 from app.routes import api_router
@@ -36,6 +37,13 @@ def create_app() -> FastAPI:
 
     # Include router from routes
     app.include_router(api_router)
+
+    # Resource not found exception
+    @app.exception_handler(ResourceNotFoundException)
+    async def resource_not_found_handler(
+        request: Request, exc: ResourceNotFoundException
+    ):
+        return ErrorResponse(message=exc.message, code=exc.status_code).result()
 
     # Override the default exception handler
     # Remember to use starlette exception

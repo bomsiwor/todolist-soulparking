@@ -32,6 +32,10 @@ class TodoUsecase:
         if not todo:
             return None
 
+        # Raise exceptiionn if todo already finished
+        if todo.finished_at:
+            return None
+
         # Update finished at & updated at
         todo.finished_at = str(formatDateTime(datetime.now()))
         todo.updated_at = str(formatDateTime(datetime.now()))

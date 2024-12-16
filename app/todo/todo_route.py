@@ -3,6 +3,7 @@ from fastapi import APIRouter, Response
 from app.todo.entity.todo_entity import Todo, TodoIn, todos
 from app.todo.repository.todo_repository import TodoRepository
 from app.todo.usecase.todo_usecase import TodoUsecase
+from core.exceptions.not_found_exception import ResourceNotFoundException
 from core.helper.responses import ErrorResponse, ResponseModel, SuccessResponse
 
 # Create instance of controller / usecase by injecting dependencies
@@ -36,8 +37,9 @@ def get_single_by_id(todo_id: str, response: Response):
     todo = todo_usecase.get_by_id(todo_id=todo_id)
 
     if not todo:
-        response.status_code = 404
-        return ErrorResponse[None](message="Todo Not found", code=404, data=None)
+        # response.status_code = 404
+        # return ErrorResponse[None](message="Todo Not found", code=404, data=None)
+        raise ResourceNotFoundException()
 
     return SuccessResponse[Todo](code=200, data=todo, message="Todo data")
 
