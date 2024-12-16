@@ -43,15 +43,15 @@ With Docker, you can build the app and run it without worrying about dependencie
 ### Steps to Build and Run with Docker:
 1. **Build the Docker image**:
    ```bash
-   docker build -t todo-app .
+   docker build -f docker/Dockerfile -t todo-app .
 
 2. Run the container
 
 ```bash
-docker run -p 8888:8888 todo-app
+docker run -p 8088:8088 todo-app
 ```
 
-3. Access the app at http://localhost:8888
+3. Access the app at http://localhost:8088
 
 4. Alternatively, you can use docker compose. Run in port 8088
 ```bash
