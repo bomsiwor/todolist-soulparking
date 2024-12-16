@@ -61,6 +61,7 @@ docker compose up -d
 
 ## Running Locally
 
+Before run the project using **uv** , make sure you have install the uv by reading this [UV Installation Docs](https://docs.astral.sh/uv/getting-started/installation/)
 Follow this steps to run this project locally.
 
 1. Clone the repository
