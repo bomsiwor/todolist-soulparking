@@ -47,4 +47,4 @@ jobs:
           script: |
             echo "Hello, universe"
             docker pull bomsiwor/be-todo-soulparking
-            docker run -p 8088:8088 --name be-soulparking bomsiwor/be-todo-soulparking
+            docker run -itd -p 8088:8088 --name be-soulparking bomsiwor/be-todo-soulparking
