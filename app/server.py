@@ -5,7 +5,7 @@ from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 from core.config import config
 from core.exceptions.not_found_exception import ResourceNotFoundException
-from core.helper.responses import ErrorResponse
+from core.helper.responses import ErrorResponse, SuccessResponse
 from starlette.exceptions import HTTPException
 from app.routes import api_router
 
@@ -34,6 +34,13 @@ def create_app() -> FastAPI:
         docs_url=None if config.APP_ENV == "production" else "/docs",
         middleware=create_middleware(),
     )
+
+    @app.get("/", include_in_schema=False)
+    def root():
+        return SuccessResponse(
+            message="Hello, universe! This is todo list app for SoulParking casestudy",
+            data=None,
+        ).result()
 
     # Include router from routes
     app.include_router(api_router)

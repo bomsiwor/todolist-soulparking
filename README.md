@@ -11,6 +11,10 @@ A simple and efficient To-Do List API built using **Python**, **FastAPI**, and *
 - Utilize **array**, no need for database.
 - Use pre-commit hooks to ensure consistency and enhance code style
 - Fully Dockerized for seamless deployment. 🐳
+- CI/CD to VPS using docker
+
+**Try live API version** :
+[🌎 LIVE DEMO API](http://193.168.195.13:8012)
 
 ---
 
