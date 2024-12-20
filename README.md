@@ -14,7 +14,7 @@ A simple and efficient To-Do List API built using **Python**, **FastAPI**, and *
 - CI/CD to VPS using docker
 
 **Try live API version** :
-[🌎 LIVE DEMO API](http://193.168.195.13:8012)
+[🌎 LIVE DEMO API](http://193.168.195.13:8088)
 
 ---
 
@@ -69,10 +69,11 @@ docker compose -f docker/docker-compose.yaml up -d --build
 Before run the project using **uv** , make sure you have install the uv by reading this [UV Installation Docs](https://docs.astral.sh/uv/getting-started/installation/)
 Follow this steps to run this project locally.
 
-1. Clone the repository
+1. Clone the repository. And generate env
 ```bash
 git clone https://github.com/bomsiwor/todolist-soulparking todo-app
 cd todo-app
+mv .env.example .env
 ```
 
 2. Setup virtual environment
