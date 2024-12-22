@@ -14,6 +14,7 @@ A simple and efficient To-Do List API built using **Python**, **FastAPI**, and *
 - CI/CD to VPS using docker
 
 **Try live API version** :
+Unfortunately the VPS got suspended on 2024-12-22 💀
 [🌎 LIVE DEMO API](http://193.168.195.13:8088)
 
 ---
